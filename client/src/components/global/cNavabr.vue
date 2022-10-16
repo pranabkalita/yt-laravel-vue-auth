@@ -38,10 +38,10 @@
             class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
           >Sign In</a>
 
-          <a
-            href="#"
+          <router-link
+            to="/sign-up"
             class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-          >Sign Up</a>
+          >Sign Up</router-link>
 
           <a
             href="#"
