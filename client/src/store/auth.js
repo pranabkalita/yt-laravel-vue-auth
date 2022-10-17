@@ -29,6 +29,12 @@ export default {
   },
 
   actions: {
+    async signOut({ dispatch }) {
+      await axios.post('/logout')
+
+      dispatch('me')
+    },
+
     async signIn({ dispatch }, credentials) {
       await axios.get('/sanctum/csrf-cookie')
 

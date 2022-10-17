@@ -19,16 +19,16 @@
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-              <a
-                href="#"
+              <router-link
+                to="/"
                 class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >Home</a>
+              >Home</router-link>
 
-              <a
-                href="#"
+              <router-link
+                to="/profile"
                 class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 v-if="authenticated"
-              >{{ user.name }}</a>
+              >{{ user.name }}</router-link>
 
             </div>
           </div>
@@ -50,6 +50,7 @@
             v-else
             href="#"
             class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            @click.prevent="signOut"
           >Sign Out</a>
         </div>
       </div>
@@ -59,7 +60,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "cNavbar",
@@ -69,6 +70,18 @@ export default {
       authenticated: "auth/authenticated",
       user: "auth/user",
     }),
+  },
+
+  methods: {
+    ...mapActions({
+      signOutAction: "auth/signOut",
+    }),
+
+    async signOut() {
+      await this.signOutAction();
+
+      this.$router.replace({ name: "home" });
+    },
   },
 };
 </script>
