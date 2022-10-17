@@ -30,24 +30,24 @@ export default {
 
   actions: {
     async signIn({ dispatch }, credentials) {
-      await axios.get('http://localhost:8000/sanctum/csrf-cookie')
+      await axios.get('/sanctum/csrf-cookie')
 
-      await axios.post('http://localhost:8000/login', credentials)
+      await axios.post('/login', credentials)
 
       dispatch('me')
     },
 
     async signUp({ dispatch }, user) {
-      await axios.get('http://localhost:8000/sanctum/csrf-cookie')
+      await axios.get('/sanctum/csrf-cookie')
 
-      await axios.post('http://localhost:8000/register', user)
+      await axios.post('/register', user)
 
       dispatch('me')
     },
 
     async me({ commit }) {
       try {
-        const user = await axios.get('http://localhost:8000/api/user')
+        const user = await axios.get('/api/user')
 
         commit('SET_AUTHENTICATED', true)
         commit('SET_USER', user.data)
