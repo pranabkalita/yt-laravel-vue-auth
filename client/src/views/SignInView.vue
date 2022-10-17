@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { mapActions } from "vuex";
 
 export default {
   name: "SignInView",
@@ -104,14 +104,12 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      signInAction: "auth/signIn",
+    }),
+
     async signUp() {
-      await axios.get("http://localhost:8000/sanctum/csrf-cookie");
-
-      await axios.post("http://localhost:8000/login", this.form);
-
-      const user = await axios.get("http://localhost:8000/api/user");
-
-      console.log("User : ", user);
+      await this.signInAction(this.form);
 
       this.$router.replace({ name: "home" });
     },

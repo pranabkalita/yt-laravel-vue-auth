@@ -122,7 +122,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { mapActions } from "vuex";
 
 export default {
   name: "SignUpView",
@@ -139,10 +139,14 @@ export default {
   },
 
   methods: {
-    async signUp() {
-      await axios.get("http://localhost:8000/sanctum/csrf-cookie");
+    ...mapActions({
+      signUpAction: "auth/signUp",
+    }),
 
-      await axios.post("http://localhost:8000/register", this.form);
+    async signUp() {
+      await this.signUpAction(this.form);
+
+      this.$router.replace({ name: "home" });
     },
   },
 };

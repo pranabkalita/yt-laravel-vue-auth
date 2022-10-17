@@ -27,23 +27,27 @@
               <a
                 href="#"
                 class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >Profile</a>
+                v-if="authenticated"
+              >{{ user.name }}</a>
 
             </div>
           </div>
         </div>
         <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-          <router-link
-            to="/sign-in"
-            class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-          >Sign In</router-link>
+          <template v-if="!authenticated">
+            <router-link
+              to="/sign-in"
+              class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            >Sign In</router-link>
 
-          <router-link
-            to="/sign-up"
-            class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-          >Sign Up</router-link>
+            <router-link
+              to="/sign-up"
+              class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+            >Sign Up</router-link>
+          </template>
 
           <a
+            v-else
             href="#"
             class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
           >Sign Out</a>
@@ -55,7 +59,16 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "cNavbar",
+
+  computed: {
+    ...mapGetters({
+      authenticated: "auth/authenticated",
+      user: "auth/user",
+    }),
+  },
 };
 </script>
